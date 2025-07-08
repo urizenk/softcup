@@ -1,0 +1,2436 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "微软雅黑", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #333;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 顶部导航栏 */
+.top-nav {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  padding: 0 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.top-nav .logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.top-nav .nav-list {
+  display: flex;
+  margin-left: 40px;
+}
+
+.top-nav .nav-list a {
+  margin-right: 30px;
+  font-size: 14px;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.top-nav .nav-list a:hover {
+  color: #007bff;
+}
+
+/* 用户中心板块 */
+.user-center {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.user-name {
+  font-size: 14px;
+  color: #333;
+}
+
+/* 用户中心下拉菜单 */
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 150px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.user-center:hover .user-menu {
+  display: block;
+}
+
+.user-menu ul {
+  list-style: none;
+}
+
+.user-menu li {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #666;
+  transition: background-color 0.3s;
+}
+
+.user-menu li:hover {
+  background-color: #f1f1f1;
+}
+
+/* 左侧侧边栏 */
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 150px;
+  border-right: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar .menu {
+  list-style: none;
+}
+
+.sidebar .menu li {
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.sidebar .menu li:hover {
+  background-color: #f1f1f1;
+  padding-left: 25px;
+}
+
+/* 子菜单样式 */
+.submenu {
+  display: none;
+  position: static; /* 修改为静态定位 */
+  width: 100%; /* 宽度与父元素一致 */
+  background-color: #fff;
+  border: none; /* 移除边框 */
+  box-shadow: none; /* 移除阴影 */
+  z-index: auto; /* 重置 z-index */
+}
+
+.menu>li:hover .submenu {
+  display: block;
+}
+
+.submenu li {
+  padding: 10px 15px 10px 30px;
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s;
+  list-style: none;
+}
+
+.submenu li:hover {
+  background-color: #f1f1f1;
+  padding-left: 35px;
+}
+
+/* 右侧主内容区 */
+.main {
+  flex: 1;
+  padding: 40px; /* 增加主内容区的内边距，让对话框与四周产生间距 */
+}
+
+/* 对话框样式 */
+.chat-dialog {
+  display: flex;
+  flex-direction: column;
+  height: calc(80vh - 100px);
+  max-width: 90%;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 对话内容显示区域 */
+.chat-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #fdfdfd;
+}
+
+/* 消息通用样式 */
+.user-message, .ai-message {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+/* 用户消息样式 */
+.user-message {
+  justify-content: flex-end;
+}
+
+.user-message .message-content {
+  background-color: #dcf8c6;
+  margin-right: 10px;
+  padding: 12px 16px;
+  border-radius: 16px 16px 0 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* AI 消息样式 */
+.ai-message .message-content {
+  background-color: #ffffff;
+  margin-left: 10px;
+}
+
+/* 头像样式 */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+/* 消息内容样式 */
+.message-content {
+  max-width: 60%;
+  padding: 12px;
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 输入区域样式 */
+.input-area {
+  display: flex;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+.input-area input[type="text"] {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.input-area input[type="file"] {
+  display: none;
+}
+
+.input-area button,
+.upload-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.input-area button:hover,
+.upload-btn:hover {
+  background-color: #0056b3;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+
+/* 图片遮罩层样式 */
+.image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* 大图样式 */
+.large-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+/* 关闭按钮样式 */
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.close-button:hover {
+    color: #ccc;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-image:hover {
+    opacity: 0.9;
+}
+.search-box {
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+.search-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 300px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-box button {
+  height: 36px;
+  width: 80px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* 工具板块容器 */
+.tool-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tool-item {
+  width: calc(33.33% - 20px);
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #eee;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.tool-item:hover {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-item h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tool-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+.view-more {
+    display: none;
+    padding: 10px 15px 10px 30px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu > li:hover .view-more {
+    display: block;
+}
+
+.view-more:hover {
+    background-color: #f1f1f1;
+}
+
+/* 文件预览样式 */
+.file-preview {
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.file-preview .file-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.file-preview .file-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.file-preview .file-item .file-name {
+  flex: 1;
+}
+
+/* 文件容器样式 */
+.message-files {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message-files a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.message-files a:hover {
+    color: #0056b3;
+}
+
+/* 消息图片样式 */
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 4px;
+}

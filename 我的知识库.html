@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="知识库.css">
+    <title>我的知识库</title>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="top-nav">
+        <div class="logo"><a href="主页.html">返回主页</a></div>
+        <!-- 用户中心板块 -->
+        <div class="user-center">
+            <div id="user-avatar" class="user-avatar">无</div>
+            <span id="user-name">用户名</span>
+            <!-- 下拉菜单 -->
+            <div class="user-menu">
+                <ul>
+                    <li><a href="用户中心.html">个人资料</a></li>
+                    <li>我的收藏</li>
+                    <li>使用记录</li>
+                    <li>设置</li>
+                    <li><a href="登录页面.html">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 知识库筛选区域 -->
+    <div class="filter-container">
+        <div class="filter-item">
+            <span class="filter-label">科目:</span>
+            <ul class="filter-options">
+                <li class="active" data-subject="all">全部</li>
+                <li data-subject="语文">语文</li>
+                <li data-subject="数学">数学</li>
+                <li data-subject="英语">英语</li>
+            </ul>
+        </div>
+        <div class="filter-item">
+            <span class="filter-label">类型:</span>
+            <ul class="filter-options">
+                <li class="active" data-type="all">全部</li>
+                <li data-type="PPT">PPT</li>
+                <li data-type="课件">课件</li>
+                <li data-type="笔记">笔记</li>
+            </ul>
+        </div>
+        <div class="filter-item">
+            <span class="filter-label">标签:</span>
+            <input type="text" id="tag-filter" placeholder="输入标签筛选">
+        </div>
+    </div>
+
+    <!-- 加号按钮 -->
+    <div class="add-button">+</div>
+
+    <!-- 隐藏的文件上传弹窗 -->
+    <div class="upload-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>添加文件</h2>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label for="file-name">文件名:</label>
+                    <input type="text" id="file-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">科目:</label>
+                    <select id="subject" required>
+                        <option value="语文">语文</option>
+                        <option value="数学">数学</option>
+                        <option value="英语">英语</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file-type">类型:</label>
+                    <select id="file-type" required>
+                        <option value="PPT">PPT</option>
+                        <option value="课件">课件</option>
+                        <option value="笔记">笔记</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tags">标签 (用逗号分隔):</label>
+                    <input type="text" id="tags" placeholder="例如: 重点, 复习">
+                </div>
+                <div class="form-group">
+                    <label for="file-upload">本地上传文件:</label>
+                    <input type="file" id="file-upload" accept=".ppt,.pptx,.doc,.docx,.txt">
+                </div>
+                <button type="submit">添加文件</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 知识库内容区域 -->
+    <div class="knowledge-container"></div>
+
+    <script src="知识库.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 定义元素
+            const knowledgeContainer = document.querySelector('.knowledge-container');
+            const subjectFilters = document.querySelectorAll('[data-subject]');
+            const typeFilters = document.querySelectorAll('[data-type]');
+            const tagFilterInput = document.getElementById('tag-filter');
+            const uploadForm = document.getElementById('upload-form');
+            const addButton = document.querySelector('.add-button');
+            const closeModal = document.querySelector('.close-modal');
+            const uploadModal = document.querySelector('.upload-modal');
+
+            // 显示上传弹窗
+            addButton.addEventListener('click', () => {
+                uploadModal.style.display = 'block';
+            });
+
+            // 关闭上传弹窗
+            closeModal.addEventListener('click', () => {
+                uploadModal.style.display = 'none';
+            });
+
+            // 页面加载时获取知识库内容
+            await fetchKnowledge();
+
+            // 科目筛选事件监听
+            subjectFilters.forEach(filter => {
+                filter.addEventListener('click', async () => {
+                    await fetchKnowledge();
+                });
+            });
+
+            // 类型筛选事件监听
+            typeFilters.forEach(filter => {
+                filter.addEventListener('click', async () => {
+                    await fetchKnowledge();
+                });
+            });
+
+            // 标签筛选事件监听
+            tagFilterInput.addEventListener('input', async () => {
+                await fetchKnowledge();
+            });
+
+            // 上传文件事件监听
+            uploadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await uploadKnowledge();
+                uploadForm.reset();
+                uploadModal.style.display = 'none';
+                await fetchKnowledge();
+            });
+
+            // 获取知识库内容
+            async function fetchKnowledge() {
+                const activeSubject = document.querySelector('[data-subject].active').dataset.subject;
+                const activeType = document.querySelector('[data-type].active').dataset.type;
+                const tags = tagFilterInput.value.trim();
+
+                try {
+                    let url = '/api/knowledge';
+                    const params = new URLSearchParams();
+                    if (activeSubject !== 'all') params.append('subject', activeSubject);
+                    if (activeType !== 'all') params.append('type', activeType);
+                    if (tags) params.append('tags', tags);
+                    if (params.toString()) url += `?${params.toString()}`;
+
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('获取知识库内容失败');
+                    const data = await response.json();
+                    displayKnowledge(data);
+                } catch (error) {
+                    console.error('获取知识库内容出错:', error);
+                }
+            }
+
+            // 上传知识库文件
+            async function uploadKnowledge() {
+                const formData = new FormData();
+                formData.append('name', document.getElementById('file-name').value);
+                formData.append('subject', document.getElementById('subject').value);
+                formData.append('type', document.getElementById('file-type').value);
+                formData.append('tags', document.getElementById('tags').value);
+                formData.append('file', document.getElementById('file-upload').files[0]);
+
+                try {
+                    const response = await fetch('/api/knowledge', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (!response.ok) throw new Error('文件上传失败');
+                } catch (error) {
+                    console.error('文件上传出错:', error);
+                }
+            }
+
+            // 展示知识库内容
+            function displayKnowledge(data) {
+                knowledgeContainer.innerHTML = '';
+                data.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'knowledge-item';
+                    itemDiv.innerHTML = `
+                        <h3>${item.name}</h3>
+                        <p>科目: ${item.subject}</p>
+                        <p>类型: ${item.type}</p>
+                        <p>标签: ${item.tags.join(', ')}</p>
+                        <a href="${item.url}" download>下载</a>
+                    `;
+                    knowledgeContainer.appendChild(itemDiv);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

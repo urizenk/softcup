@@ -1,0 +1,196 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center; /* 垂直居中 */
+  align-items: center; /* 水平居中 */
+  padding: 40px 0; /* 上下添加间距 */
+}
+
+.login-container, .register-container {
+  background-color: #fff;
+  max-width: 900px; /* 增大最大宽度 */
+  width: 80%; /* 设置宽度百分比，保证响应式 */
+  margin: 20px 0; /* 上下添加外边距 */
+  padding: 40px; /* 增大内边距 */
+  border-radius: 20px; /* 增大圆角半径，让板块更圆润 */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+.login-container:hover,.register-container:hover {
+  transform: translateY(-5px); /* 鼠标悬停时向上浮动 */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15); /* 增大阴影 */
+}
+
+.login-container h2, .register-container h2 {
+  text-align: center;
+  color: #4a6fa5;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.login-container h2::after, .register-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background-color: #4a6fa5;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #4a6fa5;
+  box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3a5a80;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.footer-text a {
+  color: #4a6fa5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 5px;
+  font-size: 13px;
+  display: none;
+}
+
+/* 新增动画效果 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake-input {
+  animation: shake 0.5s ease-in-out;
+}
+
+.login-wrapper { 
+  display: flex; 
+  justify-content: space-between; 
+  gap: 40px; 
+} 
+
+.left-login { 
+  flex: 1; 
+} 
+
+.right-login { 
+  flex: 1; 
+} 
+
+.third-party-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.third-party-buttons button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.qrcode-container { 
+  margin-top: 20px; 
+  border: 1px solid #ddd; 
+  padding: 20px; 
+  text-align: center; 
+  height: 250px; /* 固定高度，避免布局变化 */ 
+  overflow: auto; /* 添加滚动条，防止内容溢出 */ 
+}
+
+.wechat-login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.wechat-login h3 {
+  color: #07c160;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+}
+
+.third-party-buttons #wechat-login-btn { 
+  background-color: #07c160; /* 微信经典绿色 */ 
+} 
+
+.third-party-buttons #wechat-login-btn:hover { 
+  background-color: #06a756; /* 悬停时颜色加深 */ 
+} 
+
+.third-party-buttons #qq-login-btn { 
+  background-color: #eb4236; /* QQ经典红色 */ 
+} 
+
+.third-party-buttons #qq-login-btn:hover { 
+  background-color: #d33b30; /* 悬停时颜色加深 */ 
+}

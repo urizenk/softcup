@@ -1,0 +1,358 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "微软雅黑", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #333;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 顶部导航栏 */
+.top-nav {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    padding: 0 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.top-nav .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* 用户中心板块 */
+.user-center {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.user-name {
+    font-size: 14px;
+    color: #333;
+}
+
+/* 用户中心下拉菜单 */
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 150px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.user-center:hover .user-menu {
+    display: block;
+}
+
+.user-menu ul {
+    list-style: none;
+}
+
+.user-menu li {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #666;
+    transition: background-color 0.3s;
+}
+
+.user-menu li:hover {
+    background-color: #f1f1f1;
+}
+
+/* 筛选区域 */
+.filter-container {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filter-label {
+    font-weight: bold;
+    margin-right: 15px;
+    color: #666;
+}
+
+.filter-options {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.filter-options li {
+    padding: 5px 15px;
+    margin-right: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-options li:hover {
+    background-color: #f0f0f0;
+}
+
+.filter-options li.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* 知识库内容区域 */
+.knowledge-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 20px;
+}
+
+.file-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 200px;
+    min-width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.file-card:hover {
+    transform: translateY(-5px);
+}
+
+.file-card .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff4444;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.file-card .delete-btn:hover {
+    opacity: 1;
+}
+
+.file-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.file-info h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.file-info p {
+    color: #666;
+    font-size: 14px;
+}
+
+.file-tags {
+    margin-top: 10px;
+}
+
+.file-tags span {
+    background-color: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+/* 加号按钮 */
+.add-button {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.add-button:hover {
+    transform: scale(1.1);
+}
+
+/* 上传弹窗 */
+.upload-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #666;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#upload-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#upload-form button:hover {
+    background-color: #0056b3;
+}
+
+/* 标签样式 */
+.file-tags {
+    margin-top: 10px;
+}
+
+.file-tags span {
+    background-color: #f0f0f0;
+    color: #666;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+/* 标签筛选输入框 */
+#tag-filter {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+}
+
+/* 文件预览弹窗 */
+.file-preview-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-preview-content {
+    background-color: #fff;
+    width: 80%;
+    height: 80%;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.close-preview-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    z-index: 201;
+}
+
+.preview-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

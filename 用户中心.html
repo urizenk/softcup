@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户中心</title>
+    <link rel="stylesheet" href="user.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+
+    <!-- 用户中心板块 -->
+    <div class="user-center">
+      
+      
+      <!-- 下拉菜单 -->
+      <div class="user-menu">
+        <ul> 
+       
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="user-center-container">
+
+    <div class="profile-section">
+
+      <div class="avatar-container">
+        <div id="avatar" class="avatar">无</div>
+        <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+        <button id="change-avatar-btn">更改头像</button>
+      </div>
+      <div class="form-group">
+        <label>用户名:</label>
+        <input type="text" id="username">
+      </div>
+      <div class="button-group">
+        <button id="save-username-btn">保存用户名</button>
+      </div>
+    </div>
+    <div class="password-section">
+      <h2>修改密码</h2>
+      <div class="form-group">
+        <label>旧密码:</label>
+        <input type="password" id="old-password">
+      </div>
+      <div class="form-group">
+        <label>新密码:</label>
+        <input type="password" id="new-password">
+      </div>
+      <div class="form-group">
+        <label>确认新密码:</label>
+        <input type="password" id="confirm-password">
+      </div>
+      <div class="button-group">
+        <button id="change-password-btn">修改密码</button>
+      </div>
+    </div>
+  </div>
+  <script src="user.js"></script>
+</body>
+<a href="主页.html" class="back-to-home-btn">返回主页</a>
+</html>
